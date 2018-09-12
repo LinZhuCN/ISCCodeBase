@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.2.1 (Build 801U)" ts="2018-09-13 02:49:59">
+<Class name="CLOBDemo.BO.SQLInsCLOB">
+<IncludeCode>EnsSQLTypes</IncludeCode>
+<Super>Ens.BusinessOperation</Super>
+<TimeChanged>64904,9773.433708</TimeChanged>
+<TimeCreated>64904,2143.91609</TimeCreated>
+
+<Parameter name="ADAPTER">
+<Default>EnsLib.SQL.OutboundAdapter</Default>
+</Parameter>
+
+<Property name="Adapter">
+<Type>EnsLib.SQL.OutboundAdapter</Type>
+</Property>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Method name="InsertCLOB">
+<FormalSpec>pInput:CLOBDemo.MSG.StreamedRequest,*pOutput:Ens.Response</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	///Compose a stream object	
+	Set tmpstream = ##class(%Stream.GlobalCharacter).%New()
+    Do tmpstream.Write(pInput.content)
+	
+	Set TestParams=2
+	Set TestParams(1) = pInput.idx
+	Set TestParams(2) = tmpstream
+	Set TestParams(2,"SqlType")=$$$SqlLongVarchar //EnsSQLTypes.inc
+	Set TestParams(2,"LOB")=1
+	
+	Set QueryStatement = "CALL DEMO.PUTSTREAM(?,?)"
+	
+	Set tSC = ..Adapter.ExecuteProcedureParmArray(.ResultSnapshots, .OutputParams, QueryStatement, , .TestParams)
+
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+    <MapItem MessageType="CLOBDemo.MSG.StreamedRequest">
+        <Method>InsertCLOB</Method>
+    </MapItem>
+</MapItems>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="CLOBDemo.MSG.StreamedRequest">
+<Super>Ens.Request</Super>
+<TimeChanged>64904,2318.563179</TimeChanged>
+<TimeCreated>64904,2127.334145</TimeCreated>
+
+<Property name="idx">
+<Type>%Integer</Type>
+</Property>
+
+<Property name="content">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="4096"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>StreamedRequestDefaultData</DefaultData>
+<Data name="StreamedRequestDefaultData">
+<Subscript>"StreamedRequest"</Subscript>
+<Value name="1">
+<Value>idx</Value>
+</Value>
+<Value name="2">
+<Value>content</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Project name="EnsExportItem_2018-09-13 02-49-43_753+8" LastModified="2018-09-13 02:49:59.976814">
+  <ProjectDescription>Studio Project generated starting from Ensemble Production Configuration Item 'CLOBDemo.Production.CLOBProduction : CLOBDemo.BO.SQLInsCLOB' at 2018-09-12 18:49:43.753 UTC</ProjectDescription>
+  <Items>
+    <ProjectItem name="CLOBDemo.BO.SQLInsCLOB" type="CLS"></ProjectItem>
+    <ProjectItem name="CLOBDemo.MSG.StreamedRequest" type="CLS"></ProjectItem>
+    <ProjectItem name="ProductionSettings:CLOBDemo.Production.CLOBProduction.PTD" type="PTD"></ProjectItem>
+    <ProjectItem name="Settings:CLOBDemo.BO.SQLInsCLOB.PTD" type="PTD"></ProjectItem>
+    <ProjectItem name="EnsExportNotes.EnsExportItem_2018-09-13 02-49-43_753+8.PTD" type="PTD"></ProjectItem>
+  </Items>
+</Project>
+
+
+<Document name="EnsExportNotes.EnsExportItem_2018-09-13 02-49-43_753+8.PTD"><ProjectTextDocument name="EnsExportNotes.EnsExportItem_2018-09-13 02-49-43_753+8" description="Export Notes for export EnsExportItem_2018-09-13 02-49-43_753+8">
+<![CDATA[<Deployment>
+<Creation>
+<Machine>WIN-VKFOKJOD1K3</Machine>
+<Instance>HEALTHSHARE</Instance>
+<Namespace>ENSDEMO</Namespace>
+<SourceProduction>CLOBDemo.Production.CLOBProduction</SourceProduction>
+<Username>_SYSTEM</Username>
+<UTC>2018-09-12 18:49:59.971</UTC>
+</Creation>
+<Notes>
+</Notes>
+<Contents>
+<ExportProject>EnsExportItem_2018-09-13 02-49-43_753+8</ExportProject>
+<Item num="1">CLOBDemo.BO.SQLInsCLOB.CLS</Item>
+<Item num="2">CLOBDemo.MSG.StreamedRequest.CLS</Item>
+<Item num="3">ProductionSettings:CLOBDemo.Production.CLOBProduction.PTD</Item>
+<Item num="4">Settings:CLOBDemo.BO.SQLInsCLOB.PTD</Item>
+</Contents>
+<ProductionClassInExport></ProductionClassInExport>
+</Deployment>
+
+]]></ProjectTextDocument>
+</Document>
+
+<Document name="ProductionSettings:CLOBDemo.Production.CLOBProduction.PTD"><ProjectTextDocument name="ProductionSettings:CLOBDemo.Production.CLOBProduction" description="Settings for production CLOBDemo.Production.CLOBProduction">
+<![CDATA[<Production Name='CLOBDemo.Production.CLOBProduction' TestingEnabled='true' LogGeneralTraceEvents='false'><Description/><ActorPoolSize>2</ActorPoolSize></Production>
+]]></ProjectTextDocument>
+</Document>
+
+<Document name="Settings:CLOBDemo.BO.SQLInsCLOB.PTD"><ProjectTextDocument name="Settings:CLOBDemo.BO.SQLInsCLOB" description="Settings for CLOBDemo.BO.SQLInsCLOB in Production CLOBDemo.Production.CLOBProduction">
+<![CDATA[<Item Name="CLOBDemo.BO.SQLInsCLOB" Category="" ClassName="CLOBDemo.BO.SQLInsCLOB" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule=""><Setting Target="Adapter" Name="Credentials">137ORCL</Setting><Setting Target="Adapter" Name="DSN">137Oracle</Setting><Setting Target="Adapter" Name="JDBCClasspath">C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc5.jar</Setting><Setting Target="Adapter" Name="JDBCDriver">oracle.jdbc.OracleDriver</Setting><Setting Target="Adapter" Name="JGService">EnsLib.JavaGateway.Service</Setting></Item>
+]]></ProjectTextDocument>
+</Document></Export>
