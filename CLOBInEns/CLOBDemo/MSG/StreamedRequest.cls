@@ -4,6 +4,7 @@ Class CLOBDemo.MSG.StreamedRequest Extends Ens.Request
 	
 	property content As %String(MAXLEN=4096);
 
+
 Storage Default
 {
 <Data name="StreamedRequestDefaultData">

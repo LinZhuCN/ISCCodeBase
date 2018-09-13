@@ -14,16 +14,17 @@ Method InsertCLOB(pInput As CLOBDemo.MSG.StreamedRequest, Output pOutput As Ens.
 	Set tmpstream = ##class(%Stream.GlobalCharacter).%New()
     Do tmpstream.Write(pInput.content)
 	
+	
+	///Build query params, BLOB->CType=2004, CLOB->CType=2005
 	Set TestParams=2
 	Set TestParams(1) = pInput.idx
 	Set TestParams(2) = tmpstream
-	Set TestParams(2,"SqlType")=$$$SqlLongVarchar //EnsSQLTypes.inc
-	Set TestParams(2,"LOB")=1
+	Set TestParams(2,"IOType")=1
+	Set TestParams(2,"CType")=2005
 	
-	Set QueryStatement = "CALL DEMO.PUTSTREAM(?,?)"
-	
-	Set tSC = ..Adapter.ExecuteProcedureParmArray(.ResultSnapshots, .OutputParams, QueryStatement, , .TestParams)
-
+	///Execute the query
+	Set QueryStatement = "INSERT INTO CLOBDEMO c (c.ID,c.CLOBCOL) VALUES(?,?)"
+	Set tSC = ..Adapter.ExecuteUpdateParmArray(.rowCount, QueryStatement, .TestParams)
 	Quit tSC
 }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.2.1 (Build 801U)" ts="2018-09-13 02:49:59">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.2.1 (Build 801U)" ts="2018-09-13 21:29:32">
 <Class name="CLOBDemo.BO.SQLInsCLOB">
 <IncludeCode>EnsSQLTypes</IncludeCode>
 <Super>Ens.BusinessOperation</Super>
-<TimeChanged>64904,9773.433708</TimeChanged>
+<TimeChanged>64904,77007.832179</TimeChanged>
 <TimeCreated>64904,2143.91609</TimeCreated>
 
 <Parameter name="ADAPTER">
@@ -26,16 +26,17 @@
 	Set tmpstream = ##class(%Stream.GlobalCharacter).%New()
     Do tmpstream.Write(pInput.content)
 	
+	
+	///Build query params, BLOB->CType=2004, CLOB->CType=2005
 	Set TestParams=2
 	Set TestParams(1) = pInput.idx
 	Set TestParams(2) = tmpstream
-	Set TestParams(2,"SqlType")=$$$SqlLongVarchar //EnsSQLTypes.inc
-	Set TestParams(2,"LOB")=1
+	Set TestParams(2,"IOType")=1
+	Set TestParams(2,"CType")=2005
 	
-	Set QueryStatement = "CALL DEMO.PUTSTREAM(?,?)"
-	
-	Set tSC = ..Adapter.ExecuteProcedureParmArray(.ResultSnapshots, .OutputParams, QueryStatement, , .TestParams)
-
+	///Execute the query
+	Set QueryStatement = "INSERT INTO CLOBDEMO c (c.ID,c.CLOBCOL) VALUES(?,?)"
+	Set tSC = ..Adapter.ExecuteUpdateParmArray(.rowCount, QueryStatement, .TestParams)
 	Quit tSC
 ]]></Implementation>
 </Method>
@@ -54,7 +55,7 @@
 
 <Class name="CLOBDemo.MSG.StreamedRequest">
 <Super>Ens.Request</Super>
-<TimeChanged>64904,2318.563179</TimeChanged>
+<TimeChanged>64904,75977.284223</TimeChanged>
 <TimeCreated>64904,2127.334145</TimeCreated>
 
 <Property name="idx">
@@ -70,6 +71,7 @@
 <Type>%Library.CacheStorage</Type>
 <DefaultData>StreamedRequestDefaultData</DefaultData>
 <Data name="StreamedRequestDefaultData">
+<Structure>listnode</Structure>
 <Subscript>"StreamedRequest"</Subscript>
 <Value name="1">
 <Value>idx</Value>
@@ -82,8 +84,8 @@
 </Class>
 
 
-<Project name="EnsExportItem_2018-09-13 02-49-43_753+8" LastModified="2018-09-13 02:49:59.976814">
-  <ProjectDescription>Studio Project generated starting from Ensemble Production Configuration Item 'CLOBDemo.Production.CLOBProduction : CLOBDemo.BO.SQLInsCLOB' at 2018-09-12 18:49:43.753 UTC</ProjectDescription>
+<Project name="EnsExportItem_2018-09-13 02-49-43_753+8" LastModified="2018-09-13 21:29:32.67921">
+  <ProjectDescription><![CDATA[Studio Project generated starting from Ensemble Production Configuration Item &apos;CLOBDemo.Production.CLOBProduction : CLOBDemo.BO.SQLInsCLOB&apos; at 2018-09-12 18:49:43.753 UTC]]></ProjectDescription>
   <Items>
     <ProjectItem name="CLOBDemo.BO.SQLInsCLOB" type="CLS"></ProjectItem>
     <ProjectItem name="CLOBDemo.MSG.StreamedRequest" type="CLS"></ProjectItem>
@@ -102,7 +104,7 @@
 <Namespace>ENSDEMO</Namespace>
 <SourceProduction>CLOBDemo.Production.CLOBProduction</SourceProduction>
 <Username>_SYSTEM</Username>
-<UTC>2018-09-12 18:49:59.971</UTC>
+<UTC>2018-09-13 13:29:32.679</UTC>
 </Creation>
 <Notes>
 </Notes>

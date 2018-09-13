@@ -16,6 +16,8 @@ XData ProductionDefinition
   <Item Name="EnsLib.JavaGateway.Service" Category="" ClassName="EnsLib.JavaGateway.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="JavaHome">C:\Program Files\Java\jdk1.8.0_181\</Setting>
   </Item>
+  <Item Name="CLOBDemo.BS.ReadFileService" Category="" ClassName="CLOBDemo.BS.ReadFileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
 </Production>
 }
 
