@@ -10,7 +10,7 @@ Parameter INVOCATION = "Queue";
 
 Method InsertCLOB(pInput As CLOBDemo.MSG.StreamedRequest, Output pOutput As Ens.Response) As %Status
 {
-	///Compose a stream object	
+	///Compose a stream object from request	
 	Set tmpstream = ##class(%Stream.GlobalCharacter).%New()
     Do tmpstream.Write(pInput.content)
 	
