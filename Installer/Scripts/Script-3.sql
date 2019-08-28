@@ -1,0 +1,1 @@
+select count(*) from HS_SDA3_Streamlet.LabOrder
