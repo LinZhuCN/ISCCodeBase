@@ -12,7 +12,7 @@ ClassMethod NodeToDynObj(Node As %XML.Node) As %DynamicObject
 	i (Node.NodeType = $$$xmlTEXTNODE) {
 		s res = Node.NodeData
 		d Node.MoveToParent(1)
-		q res
+		q res 
 	}
 	#dim res As %DynamicObject = {}
 	do  {
