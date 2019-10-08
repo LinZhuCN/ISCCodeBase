@@ -2,7 +2,7 @@
 Projects collected from POCs or Demos
 
 
-TRDYDemo: A Demo created for TRDY POC project. Reading csv file, transferring the data into sda3 and push them through HSACCESS. 
+TRDYDemo: A Demo created for TRDY POC project. Reading csv file, transferring the data into sda3 and push them through Gateway. 
 
 Installer/GoodWillApp: An automated HS install script. Mirroring included.
 
