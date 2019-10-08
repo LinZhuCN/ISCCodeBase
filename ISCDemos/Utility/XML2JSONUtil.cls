@@ -3,7 +3,7 @@ Class Utility.XML2JSONUtil Extends %RegisteredObject
 
 /// An utility method to transfer an xml into json without schema
 /// Known limitations:
-/// 1. Can not handle XML attributes yes since the json representation of them are json nodes, which is ambiguous to those of xml properties
+/// 1. Can not handle XML attributes yet since the json representation of them are json nodes, which is ambiguous to those of xml properties
 /// 2. Array or List XML nodes can be ambiguous to xml properties when there is only one member in the array/list.
 /// Since without schema, when there is only one child node in the xml, we can not decide whether it is a single node or a member of an array/list
 ClassMethod NodeToDynObj(Node As %XML.Node) As %DynamicObject
@@ -25,7 +25,6 @@ ClassMethod NodeToDynObj(Node As %XML.Node) As %DynamicObject
 	else{
 		s value = ""
 		d Node.GetText(.value)
-		Set value = $ZSTRIP(value,"*C")
 	}
 	//Remove control characters such as  \r\n etc.
 	if ("string" = [(value)].%GetTypeOf(0)){
